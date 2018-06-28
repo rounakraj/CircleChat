@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>441952894050-gshmcn0gn22hnn18di04l41f3pu7n4c2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.441952894050-gshmcn0gn22hnn18di04l41f3pu7n4c2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBuiYNQUdr5g4tB23r0AK--GHr_H2K7eUc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>441952894050</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.appaccelerator.Circle</string>
+	<key>PROJECT_ID</key>
+	<string>circlechat-15dbe</string>
+	<key>STORAGE_BUCKET</key>
+	<string>circlechat-15dbe.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:441952894050:ios:3e68444e935b2104</string>
+	<key>DATABASE_URL</key>
+	<string>https://circlechat-15dbe.firebaseio.com</string>
+</dict>
+</plist>
