@@ -86,6 +86,88 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     
+    //MARK: TableViewDelegate Functions
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        
+        var tempRecent: NSDictionary!
+        if searchController.isActive && searchController.searchBar.text != ""{
+            tempRecent = filteredChats[indexPath.row]
+        } else {
+            tempRecent = recentChats[indexPath.row]
+        }
+        var muteTitle = "Unmute"
+        var mute = false
+        
+        if (tempRecent[kMEMBERSTOPUSH] as! [String]).contains(FUser.currentId()) {
+            
+            muteTitle = "Mute"
+            mute = true
+            
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
+            
+            print("Delete \(indexPath)")
+            
+            self.recentChats.remove(at: indexPath.row)
+            deleteRecentChat(recentChatDictionary: tempRecent)
+            self.tableView.reloadData()
+        }
+        
+        let muteAction = UITableViewRowAction(style: .default, title: "Mute") { (action, indexPath) in
+            
+            print("Mute \(indexPath)")
+        }
+        
+        muteAction.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
+        
+        
+        return [deleteAction, muteAction]
+    }
+    
+    
+    
+    //Clicking the Cell
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        var recent: NSDictionary!
+        if searchController.isActive && searchController.searchBar.text != ""{
+            recent = filteredChats[indexPath.row]
+        } else {
+            recent = recentChats[indexPath.row]
+        }
+        
+        //Restart Chat if Deleted
+        
+        restartRecenChat(recent: recent)
+        
+        
+        //Show Chat View
+        
+        let chatVC = ChatViewController()
+        chatVC.hidesBottomBarWhenPushed = true
+        chatVC.viewTitle = (recent[kWITHUSERFULLNAME] as? String)!
+        chatVC.memberIds = (recent[kMEMBERS] as? [String])!
+        chatVC.membersToPush = (recent[kMEMBERSTOPUSH] as? [String])!
+        chatVC.chatRoomId = (recent[kCHATROOMID] as? String)!
+        
+        
+        
+        
+        navigationController?.pushViewController(chatVC, animated: true)
+        
+        
+    }
     
     //MARK: loadRecentChats
     
@@ -123,7 +205,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         groupButton.addTarget(self, action: #selector(self.groupButtonPressed), for: .touchUpInside)
         groupButton.setTitle("New Group", for: .normal)
-        let buttonColor = #colorLiteral(red: 0.1265570505, green: 0.1996936355, blue: 1, alpha: 1)
+        let buttonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         groupButton.setTitleColor(buttonColor, for: .normal)
         
         let lineView = UIView(frame: CGRect(x: 0, y: headerView.frame.height - 1, width: tableView.frame.width, height: 1))

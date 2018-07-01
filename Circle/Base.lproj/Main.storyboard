@@ -47,7 +47,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMv-oV-KnD">
                                 <rect key="frame" x="16" y="359" width="343" height="39"/>
-                                <color key="backgroundColor" red="0.11039199368818509" green="0.1722954940177811" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="H2e-Bf-zUl"/>
                                 </constraints>
@@ -60,7 +60,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WTM-F2-bW8">
                                 <rect key="frame" x="16" y="754" width="343" height="39"/>
-                                <color key="backgroundColor" red="0.10332557352129457" green="0.18974320139629164" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="faq-M5-hIQ"/>
                                 </constraints>
@@ -136,7 +136,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Jx-hl-dsN">
                                 <rect key="frame" x="16" y="754" width="343" height="39"/>
-                                <color key="backgroundColor" red="0.12655705049564081" green="0.1996936354532739" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="4Cs-T4-ZF5"/>
                                 </constraints>
@@ -330,7 +330,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" red="0.12655705049999999" green="0.19969363549999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="30" id="Gic-9G-GZD"/>
                                                         <constraint firstAttribute="height" constant="30" id="Jfr-bc-dTx"/>
@@ -399,6 +399,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="P9p-HF-fdQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3527.1999999999998" y="-179.55665024630542"/>
+        </scene>
+        <!--Messages View Controller-->
+        <scene sceneID="Sdp-Rn-iup">
+            <objects>
+                <viewController id="DJn-Hc-ilS" customClass="JSQMessagesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a5m-lb-6eU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Mfg-XV-IYq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZC1-ID-BZK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4663" y="-426"/>
         </scene>
         <!--Users Table View Controller-->
         <scene sceneID="6SD-Vp-G7Q">
