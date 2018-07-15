@@ -43,5 +43,17 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Circle Chat would like to access your Camera</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Circle Chat would like to access your Media Library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Circle Chat would like to access your Photo Library</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Circle Chat would like to access your Microphone for placing calls and sending audio messages</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Circle Chat would like to access your current location</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Circle Chat would like to access your Contacts for finding your friends</string>
 </dict>
 </plist>

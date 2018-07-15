@@ -22,6 +22,22 @@ class OutgoingMessages {
         messageDictionary = NSMutableDictionary(objects: [message,senderId,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying, kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
     }
     
+    //picture messages
+    
+    init(message: String, pictureLink: String, senderId: String, senderName: String, date: Date, status: String, type: String){
+        
+        messageDictionary = NSMutableDictionary(objects: [message,pictureLink,senderId,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying, kPICTURE as NSCopying , kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
+    }
+    
+    
+    //Video Messages
+    
+    init(message: String, video: String, thumbNail: NSData, senderId: String, senderName: String, date: Date, status: String, type: String){
+        
+        let picThumbNail = thumbNail.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
+        
+        messageDictionary = NSMutableDictionary(objects: [message,video,picThumbNail,senderId,senderName,dateFormatter().string(from: date),status,type], forKeys: [kMESSAGE as NSCopying, kVIDEO as NSCopying, kPICTURE as NSCopying , kSENDERID as NSCopying, kSENDERNAME as NSCopying, kDATE as NSCopying, kSTATUS as NSCopying, kTYPE as NSCopying])
+    }
     
     //MARK: Send Message
     
