@@ -20,6 +20,7 @@
 		8D475D8120FB205700EDF480 /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */; };
 		8D475D8320FB454100EDF480 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8220FB454100EDF480 /* VideoMessage.swift */; };
 		8D475D8520FBC5A300EDF480 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8420FBC5A300EDF480 /* AudioViewController.swift */; };
+		8D475D8720FCC79500EDF480 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8620FCC79500EDF480 /* MapViewController.swift */; };
 		8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58720F20E031F900E8DE46 /* LoginViewController.swift */; };
 		8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58721120E0320600E8DE46 /* RegisterViewController.swift */; };
 		8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE36D20E0C92A00C63D04 /* FUser.swift */; };
@@ -82,6 +83,7 @@
 		8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
 		8D475D8220FB454100EDF480 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
 		8D475D8420FBC5A300EDF480 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		8D475D8620FCC79500EDF480 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		8D58720F20E031F900E8DE46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8D58721120E0320600E8DE46 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8D7CE36D20E0C92A00C63D04 /* FUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FUser.swift; path = "../New Group/FUser.swift"; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				8DBD391220E3E08C00714FBB /* ProfileTableViewController.swift */,
+				8D475D8620FCC79500EDF480 /* MapViewController.swift */,
 				8DBD390E20E2C51100714FBB /* UsersTableViewController.swift */,
 				8DC6F63020E7EDFC00175322 /* ChatViewController.swift */,
 			);
@@ -534,6 +537,7 @@
 				8DB8C02A20E9071B00009943 /* IncomingMessages.swift in Sources */,
 				8DC6F62F20E4F0C300175322 /* RecentChatTableViewCell.swift in Sources */,
 				8DB8C02820E8B3B700009943 /* OutgoingMessages.swift in Sources */,
+				8D475D8720FCC79500EDF480 /* MapViewController.swift in Sources */,
 				8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */,
 				8D475D7D20FA7D6800EDF480 /* Camera.swift in Sources */,
 				8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */,

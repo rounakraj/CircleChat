@@ -65,7 +65,7 @@ public let kSHOWAVATAR = "showAvatar"
 public let kPASSWORDPROTECT = "passwordProtect"
 public let kFIRSTRUN = "firstRun"
 public let kNUMBEROFMESSAGES = 10
-public let kMAXDURATION = 120.0
+public let kMAXDURATION = 300.0
 public let kAUDIOMAXDURATION = 120.0
 public let kSUCCESS = 2
 

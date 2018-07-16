@@ -646,6 +646,35 @@
             </objects>
             <point key="canvasLocation" x="6439.1999999999998" y="-431.5270935960591"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="fWK-Np-yTG">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="5Nx-Zq-hrt" customClass="MapViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NQD-qC-srz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsTraffic="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XgW-5r-Cdh">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="XgW-5r-Cdh" firstAttribute="trailing" secondItem="Set-kK-wY8" secondAttribute="trailing" id="5ev-0c-SNd"/>
+                            <constraint firstItem="XgW-5r-Cdh" firstAttribute="top" secondItem="NQD-qC-srz" secondAttribute="top" id="EW4-w5-0R2"/>
+                            <constraint firstAttribute="bottom" secondItem="XgW-5r-Cdh" secondAttribute="bottom" id="lbY-0e-XQ3"/>
+                            <constraint firstItem="XgW-5r-Cdh" firstAttribute="leading" secondItem="Set-kK-wY8" secondAttribute="leading" id="seo-1I-gzc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Set-kK-wY8"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="XgW-5r-Cdh" id="YcV-XZ-tI4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lWC-If-9p0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7192.8000000000002" y="-431.5270935960591"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Z9A-cP-ipC">
             <objects>
