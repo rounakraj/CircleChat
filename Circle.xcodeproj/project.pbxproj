@@ -19,6 +19,7 @@
 		8D475D7F20FA8AA800EDF480 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D7E20FA8AA800EDF480 /* Downloads.swift */; };
 		8D475D8120FB205700EDF480 /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */; };
 		8D475D8320FB454100EDF480 /* VideoMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8220FB454100EDF480 /* VideoMessage.swift */; };
+		8D475D8520FBC5A300EDF480 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8420FBC5A300EDF480 /* AudioViewController.swift */; };
 		8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58720F20E031F900E8DE46 /* LoginViewController.swift */; };
 		8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58721120E0320600E8DE46 /* RegisterViewController.swift */; };
 		8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE36D20E0C92A00C63D04 /* FUser.swift */; };
@@ -80,6 +81,7 @@
 		8D475D7E20FA8AA800EDF480 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
 		8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoMediaItem.swift; sourceTree = "<group>"; };
 		8D475D8220FB454100EDF480 /* VideoMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoMessage.swift; sourceTree = "<group>"; };
+		8D475D8420FBC5A300EDF480 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		8D58720F20E031F900E8DE46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8D58721120E0320600E8DE46 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8D7CE36D20E0C92A00C63D04 /* FUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FUser.swift; path = "../New Group/FUser.swift"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */,
 				8D475D8220FB454100EDF480 /* VideoMessage.swift */,
 				8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */,
+				8D475D8420FBC5A300EDF480 /* AudioViewController.swift */,
 				8DB8C02920E9071B00009943 /* IncomingMessages.swift */,
 			);
 			path = Classes;
@@ -541,6 +544,7 @@
 				8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */,
 				8DBD390F20E2C51100714FBB /* UsersTableViewController.swift in Sources */,
 				8D475D7F20FA8AA800EDF480 /* Downloads.swift in Sources */,
+				8D475D8520FBC5A300EDF480 /* AudioViewController.swift in Sources */,
 				8DC6F63120E7EDFC00175322 /* ChatViewController.swift in Sources */,
 				8D7CE37220E0CBDD00C63D04 /* HelperFunctions.swift in Sources */,
 			);
