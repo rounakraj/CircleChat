@@ -71,4 +71,32 @@ class OutgoingMessages {
         
         
     }
+    
+    
+    class func deleteMessage(withId: String, chatRoomId: String) {
+        
+    }
+    
+    class func updateMessage(withId: String, chatRoomId: String, memberIds: [String]) {
+        
+        let readDate = dateFormatter().string(from: Date())
+        print("Message is Read at : " + readDate)
+        let values = [kSTATUS : kREAD, kREADDATE : readDate]
+        for userId in memberIds {
+            
+            reference(.Message).document(userId).collection(chatRoomId).document(withId).getDocument { (snapshot,error) in
+                
+                guard let snapshot = snapshot else { return }
+                
+                if snapshot.exists {
+                    
+                    reference(.Message).document(userId).collection(chatRoomId).document(withId).updateData(values)
+                }
+                
+            }
+        }
+        
+        
+    }
+    
 }

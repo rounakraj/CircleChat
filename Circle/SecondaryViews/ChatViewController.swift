@@ -537,6 +537,25 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     func loadMessages()
     {
+        //Load message status
+        
+        updatedChatListener = reference(.Message).document(FUser.currentId()).collection(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            
+            guard let snapshot = snapshot else { return }
+            if !snapshot.isEmpty {
+                
+                snapshot.documentChanges.forEach({ (diff) in
+                    if diff.type == .modified {
+                        //update local message
+                        self.updateMessage(messageDictionary: diff.document.data() as NSDictionary)
+                        
+                        
+                    }
+                })
+            }
+            
+        })
+        
         //get last 11 messages
         
         reference(.Message).document(FUser.currentId()).collection(chatRoomId).order(by: kDATE, descending: true).limit(to: 11).getDocuments { (snapshot, error) in
@@ -682,6 +701,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         if (messageDictionary[kSENDERID] as! String) != FUser.currentId() {
             //update message status
             
+            OutgoingMessages.updateMessage(withId: messageDictionary[kMESSAGEID] as! String, chatRoomId: chatRoomId, memberIds: memberIds)
+            
         }
         
         let message = incomingMessage.createMessage(messageDictionary: messageDictionary, chatRoomId: chatRoomId)
@@ -697,6 +718,19 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     
+    
+    func updateMessage(messageDictionary: NSDictionary) {
+        
+        for index in 0 ..< objectMessages.count {
+            let temp = objectMessages[index]
+            if messageDictionary[kMESSAGEID] as! String == temp[kMESSAGEID] as! String {
+                
+                objectMessages[index] = messageDictionary
+                self.collectionView!.reloadData()
+                
+            }
+        }
+    }
     
     //MARK: Load More Messages
     
@@ -928,9 +962,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     }
     
     func readTimeFrom(dateString: String) -> String {
+        print("Date String is : " + dateString)
         let date = dateFormatter().date(from: dateString)
         let currentDateFormat = dateFormatter()
-        currentDateFormat.dateFormat = "HH:MM"
+        currentDateFormat.dateFormat = "HH:mm"
+        print("FORMATTED DATE STRING" + currentDateFormat.string(from: date!))
         return currentDateFormat.string(from: date!)
     }
 }
