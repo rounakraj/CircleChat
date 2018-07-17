@@ -146,3 +146,30 @@ func deleteRecentChat(recentChatDictionary: NSDictionary){
         reference(.Recent).document(recentId as! String).delete()
     }
 }
+
+//Clear Counter
+func clearRecentCounter(chatRoomId: String) {
+    
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (snapshot, error) in
+        
+        guard let snapshot = snapshot else { return }
+        
+        if !snapshot.isEmpty {
+            
+            for recent in snapshot.documents {
+                
+                let currentRecent = recent.data() as NSDictionary
+                if currentRecent[kUSERID] as? String == FUser.currentId() {
+                    clearRecentCounterItems(recent: currentRecent)
+                    
+                }
+            }
+        }
+    }
+}
+
+func clearRecentCounterItems(recent: NSDictionary){
+    
+    print("Clear Recent Counter")
+    reference(.Recent).document(recent[kRECENTID] as! String).updateData([kCOUNTER : 0])
+}
