@@ -675,6 +675,51 @@
             </objects>
             <point key="canvasLocation" x="7192.8000000000002" y="-431.5270935960591"/>
         </scene>
+        <!--Picture Collection View Controller-->
+        <scene sceneID="g5G-OU-Qzc">
+            <objects>
+                <collectionViewController id="qU9-aG-UIq" customClass="PictureCollectionViewController" customModule="Circle" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="XXR-CX-lkw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="taP-bV-uuM">
+                            <size key="itemSize" width="105" height="105"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="25" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Ns2-5I-iCr">
+                                <rect key="frame" x="10" y="10" width="105" height="105"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hgL-09-2nL">
+                                            <rect key="frame" x="0.0" y="0.0" width="105" height="105"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="hgL-09-2nL" firstAttribute="centerY" secondItem="Ns2-5I-iCr" secondAttribute="centerY" id="CY7-On-0CD"/>
+                                    <constraint firstItem="hgL-09-2nL" firstAttribute="width" secondItem="Ns2-5I-iCr" secondAttribute="width" id="bVb-eH-UBK"/>
+                                    <constraint firstItem="hgL-09-2nL" firstAttribute="centerX" secondItem="Ns2-5I-iCr" secondAttribute="centerX" id="dVi-8n-VaW"/>
+                                    <constraint firstItem="hgL-09-2nL" firstAttribute="height" secondItem="Ns2-5I-iCr" secondAttribute="height" id="iea-1L-pZ6"/>
+                                </constraints>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="qU9-aG-UIq" id="tVO-zq-tBd"/>
+                            <outlet property="delegate" destination="qU9-aG-UIq" id="xUY-gw-Too"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B4z-Hg-Yv5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7192.8000000000002" y="230.54187192118226"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Z9A-cP-ipC">
             <objects>

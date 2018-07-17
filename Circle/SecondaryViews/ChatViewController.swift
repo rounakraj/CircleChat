@@ -39,6 +39,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var loadOld = false
     var loadedMessagesCount = 0
     
+    var typingCounter = 0
+    
     var typingListener: ListenerRegistration?
     var updatedChatListener: ListenerRegistration?
     var newChatListener: ListenerRegistration?
@@ -56,6 +58,11 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     var allPictureMessages: [String] = []
     
     var initialLoadComplete = false
+    
+    var jsqAvatarDictionary: NSMutableDictionary?
+    var avatarImageDictionary: NSMutableDictionary?
+    var showAvatars = true
+    var firstLoad: Bool?
     
     
     var outgoingBubble = JSQMessagesBubbleImageFactory()?.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
@@ -95,17 +102,22 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //Fixig for iPhone X
     override func viewDidLayoutSubviews() {
-        perform(Selector("jsq_updateCollectionViewInsets"))
+        perform(Selector(("jsq_updateCollectionViewInsets")))
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createTypingObserver()
         
         navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(self.backAction))]
         
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
+        
+        jsqAvatarDictionary = [ : ]
+        
         
         setCustomTitle()
         
@@ -251,6 +263,22 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
+        
+        let message = messages[indexPath.row]
+        var avatar: JSQMessageAvatarImageDataSource
+        
+        if let testAvatar = jsqAvatarDictionary!.object(forKey: message.senderId) {
+            avatar = testAvatar as! JSQMessageAvatarImageDataSource
+        } else {
+            avatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatarPlaceHolder"), diameter: 70)
+        }
+        
+        return avatar
+        
+    }
     //MARK: JSQMessages Delegate Functions
     
     override func didPressAccessoryButton(_ sender: UIButton!) {
@@ -371,7 +399,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapMessageBubbleAt indexPath: IndexPath!) {
         
         
-        print("Tap message at \(indexPath)")
+        print("Tap message at \(String(describing: indexPath))")
         let messageDictionary = objectMessages[indexPath.row]
         let messageType = messageDictionary[kTYPE] as! String
         
@@ -422,6 +450,34 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
     }
+    
+    
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didTapAvatarImageView avatarImageView: UIImageView!, at indexPath: IndexPath!) {
+        
+        let senderId = messages[indexPath.row].senderId
+        var selectedUser: FUser?
+        
+        if senderId == FUser.currentId() {
+            selectedUser = FUser.currentUser()
+        } else {
+            for user in withUsers {
+                if user.objectId == senderId {
+                    selectedUser = user
+                }
+            }
+        }
+        
+        //show user profile
+        
+        presentUserProfile(forUser: selectedUser!)
+        
+        
+        
+    }
+    
+    
+    
+    
     //MARK: Send Messages
     
     func sendMessage(text: String?, date: Date, picture: UIImage?, location: String?, video: NSURL?, audio: String?)
@@ -566,6 +622,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 self.initialLoadComplete = true
                 
                 //listen for new chat
+                
+                self.listenForNewChats()
                 return
                 
             }
@@ -771,6 +829,7 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     @objc func backAction()
     {
+        removeListeners()
         self.navigationController?.popViewController(animated: true)
         
     }
@@ -795,6 +854,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         self.navigationController?.pushViewController(profileVC, animated: true)
         
         
+    }
+    
+    func presentUserProfile(forUser: FUser) {
+        
+        let profileVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileView") as! ProfileTableViewController
+        
+        profileVC.user = forUser
+        self.navigationController?.pushViewController(profileVC, animated: true)
     }
 
     //MARK: CustomSendButton
@@ -821,6 +888,67 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
     }
     
+    
+    
+    //MARK: Typing Indicator
+    
+    func createTypingObserver() {
+        typingListener = reference(.Typing).document(chatRoomId).addSnapshotListener({ (snapshot, error) in
+            
+            guard let snapshot = snapshot else { return }
+            if snapshot.exists {
+                
+                for data in snapshot.data()! {
+                    if data.key != FUser.currentId() {
+                        let typing = data.value as! Bool
+                        self.showTypingIndicator = typing
+                        
+                        if typing {
+                            self.scrollToBottom(animated: true)
+                        }
+                    }
+                    
+                }
+            } else {
+                reference(.Typing).document(self.chatRoomId).setData([FUser.currentId() : false])
+            }
+        })
+    }
+    
+    
+    func typingCounterStart()
+    {
+        typingCounter += 1
+        typingCounterSave(typing: true)
+        
+        self.perform(#selector(self.typingCounterStop), with: nil, afterDelay: 2.0)
+        
+    }
+    
+    
+    @objc func typingCounterStop() {
+        
+        typingCounter -= 1
+        if typingCounter == 0 {
+            typingCounterSave(typing: false)
+        }
+    }
+    
+    func typingCounterSave(typing: Bool)
+    {
+        reference(.Typing).document(chatRoomId).updateData([FUser.currentId() : typing])
+        
+        
+    }
+    
+    
+    //MARK: UITextView Delegate
+    
+    override func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        typingCounterStart()
+        return true
+    }
     
     
     //MARK: UIIMAGEPickerController Delegate
@@ -903,6 +1031,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             self.withUsers = withUsers
             //get avatars
             
+            self.getAvatarImages()
+            
             if !self.isGroup! {
                 //update user info
                 self.setUIForSingleChat()
@@ -968,5 +1098,93 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         currentDateFormat.dateFormat = "HH:mm"
         print("FORMATTED DATE STRING" + currentDateFormat.string(from: date!))
         return currentDateFormat.string(from: date!)
+    }
+    
+    
+    //MARK: getAvatars
+    
+    func getAvatarImages() {
+    
+        if (showAvatars) {
+            
+            collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize(width: 30, height: 30)
+            collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize(width: 30, height: 30)
+            
+            //Get Current User Avatar
+            avatarImgeFrom(fUser: FUser.currentUser()!)
+            
+            
+            for user in withUsers {
+                avatarImgeFrom(fUser: user)
+            }
+            
+        }
+    }
+    
+    func avatarImgeFrom(fUser: FUser)
+    {
+        if fUser.avatar != "" {
+            dataImageFromString(pictureString: fUser.avatar) { (imageData) in
+                
+                if imageData == nil {
+                    return
+                }
+                
+                if self.avatarImageDictionary != nil {
+                    //update avatar
+                    self.avatarImageDictionary!.removeObject(forKey: fUser.objectId)
+                    self.avatarImageDictionary!.setObject(imageData!, forKey: fUser.objectId as NSCopying)
+                    
+                    
+                } else {
+                    
+                    self.avatarImageDictionary = [fUser.objectId : imageData!]
+                }
+                
+                //Carete JSQAvatars
+                self.createJSQAvatar(avatarDictionary: self.avatarImageDictionary)
+                
+                
+            }
+        }
+    }
+    
+    
+    
+    func createJSQAvatar(avatarDictionary: NSMutableDictionary?) {
+        
+        let defaultAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(named: "avatarPlaceholder"), diameter: 70)
+        if avatarDictionary != nil {
+            
+            for memberId in memberIds {
+                if let avatarImageData = avatarDictionary![memberId] {
+                    let jsqAvatar = JSQMessagesAvatarImageFactory.avatarImage(with: UIImage(data: avatarImageData as! Data), diameter: 70)
+                    self.jsqAvatarDictionary!.setValue(jsqAvatar, forKey: memberId)
+                } else {
+                    self.jsqAvatarDictionary!.setValue(defaultAvatar, forKey: memberId)
+                }
+                
+            }
+           
+            self.collectionView.reloadData()
+        }
+        
+        
+    }
+    //MARK: Remove Listeners
+    
+    func removeListeners()
+    {
+        if typingListener != nil {
+            typingListener!.remove()
+        }
+        
+        if newChatListener != nil {
+            newChatListener!.remove()
+        }
+        
+        if updatedChatListener != nil {
+            updatedChatListener!.remove()
+        }
     }
 }
