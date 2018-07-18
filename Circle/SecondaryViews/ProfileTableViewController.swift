@@ -55,6 +55,8 @@ class ProfileTableViewController: UITableViewController {
             self.updateBlockStatus()
             
         }
+        
+        blcockUser(userToBlock: user!)
     }
     
     
