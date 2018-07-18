@@ -139,6 +139,48 @@ func restartRecenChat(recent: NSDictionary){
     }
 }
 
+//Update Recent
+
+
+func updateRecents(chatRoomId: String, lastMessage: String) {
+    
+    reference(.Recent).whereField(kCHATROOMID, isEqualTo: chatRoomId).getDocuments { (snapshot, error) in
+        
+        guard let snapshot = snapshot else { return }
+        
+        if !snapshot.isEmpty {
+            
+            for recent in snapshot.documents {
+                
+                let currentRecent = recent.data() as NSDictionary
+                updateRecentItems(recent: currentRecent, lastMessage: lastMessage)
+            }
+        }
+    }
+}
+
+
+func updateRecentItems(recent: NSDictionary, lastMessage: String) {
+    
+    
+    let date = dateFormatter().string(from: Date())
+    var counter = recent[kCOUNTER] as! Int
+    
+    if recent[kUSERID] as? String != FUser.currentId() {
+        counter += 1
+        
+    }
+    
+    let values = [kLASTMESSAGE : lastMessage, kCOUNTER : counter, kDATE : date] as [String : Any]
+    reference(.Recent).document(recent[kRECENTID] as! String).updateData(values)
+}
+
+
+
+
+
+
+
 //Delete Chat
 
 func deleteRecentChat(recentChatDictionary: NSDictionary){
