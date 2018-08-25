@@ -82,7 +82,8 @@ class IncomingMessages {
         
         let text = messageDictionary[kMESSAGE] as! String
         
-        return JSQMessage(senderId: userId, senderDisplayName: name, date: date, text: text)
+        let decryptText = Encryption.decryptText(chatRoomId: chatRoomId, encryptedMessage: text)
+        return JSQMessage(senderId: userId, senderDisplayName: name, date: date, text: decryptText)
         
     }
     

@@ -227,6 +227,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     {
         print("Group Button Pressed")
+        selectUserForChat(isGroup: true)
         
     }
     //MARK: IBActions
@@ -235,9 +236,7 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func createNewChatButtonPressed(_ sender: Any) {
         
-        let userVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "userTableView") as! UsersTableViewController
-        
-        self.navigationController?.pushViewController(userVC, animated: true)
+        selectUserForChat(isGroup: false)
     }
     
     
@@ -291,6 +290,13 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     //MARK: Helper functions
+    
+    func selectUserForChat(isGroup: Bool){
+        
+        let contactsVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "contactsView") as! ContactsTableViewController
+        contactsVC.isGroup = isGroup
+        self.navigationController?.pushViewController(contactsVC, animated: true)
+    }
     
     func updatePushMembers(recent: NSDictionary, mute: Bool) {
         

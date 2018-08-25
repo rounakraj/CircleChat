@@ -8,8 +8,11 @@
 
 import UIKit
 import ProgressHUD
+import ImagePicker
 
-class RegisterViewController: UIViewController {
+
+class RegisterViewController: UIViewController, ImagePickerDelegate {
+    
 
     var avatarImage: UIImage?
     
@@ -33,6 +36,7 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        avatarImageView.isUserInteractionEnabled = true
 
         // Do any additional setup after loading the view.
     }
@@ -50,7 +54,15 @@ class RegisterViewController: UIViewController {
     }
     //MARK: IBActions
     
- 
+    @IBAction func avatarImageTapped(_ sender: Any) {
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
+        present(imagePickerController, animated: true, completion: nil)
+        
+        dismissKeyboard()
+    }
+    
     @IBAction func registerButtonPressed(_ sender: Any) {
         if usernameTextField.text != "" && emailTextField.text != "" && passwordTextField.text != ""  && repeatPasswordTextField.text != ""  && surnameTextField.text != "" && countryTextField.text != "" && cityTextField.text != "" && phoneTextField.text != ""{
             
@@ -67,10 +79,18 @@ class RegisterViewController: UIViewController {
     
     
     @IBAction func cameraButtonPressed(_ sender: Any) {
+        
+        let imagePickerController = ImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.imageLimit = 1
+        present(imagePickerController, animated: true, completion: nil)
+        
+        dismissKeyboard()
     }
     
     
     @IBAction func tapButtonPressed(_ sender: Any) {
+        dismissKeyboard()
     }
     
     
@@ -156,7 +176,7 @@ class RegisterViewController: UIViewController {
                 
             }
         }else {
-            let avatarData = avatarImage?.jpegData(compressionQuality: 0.7)
+            let avatarData = avatarImage?.jpegData(compressionQuality: 0.5)
             let avatar = avatarData?.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             tempDictionary[kAVATAR] = avatar
             
@@ -185,5 +205,24 @@ class RegisterViewController: UIViewController {
         
         
     }
+    
+    //MARK: ImagePickerDelegate
+    
+    func wrapperDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func doneButtonDidPress(_ imagePicker: ImagePickerController, images: [UIImage]) {
+        if  images.count > 0 {
+            self.avatarImage = images.first!
+            self.avatarImageView.image = self.avatarImage?.circleMasked
+        }
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    func cancelButtonDidPress(_ imagePicker: ImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 
 }

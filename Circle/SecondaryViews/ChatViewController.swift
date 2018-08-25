@@ -543,8 +543,8 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         //text messsage
         
         if let text = text {
-            
-            outgoingMessage = OutgoingMessages(message: text, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT )
+            let encryptedText = Encryption.encryptText(chatRoomId: self.chatRoomId , message: text )
+            outgoingMessage = OutgoingMessages(message: encryptedText, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kTEXT )
         }
         
         
@@ -556,10 +556,13 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 
                 if imageLink != nil {
                     
+                    
+                    
                     let text = "[\(kPICTURE)]"
 
+                    let encryptedText = Encryption.encryptText(chatRoomId: self.chatRoomId , message: text )
                     
-                    outgoingMessage = OutgoingMessages(message: text, pictureLink: imageLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
+                    outgoingMessage = OutgoingMessages(message: encryptedText, pictureLink: imageLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kPICTURE)
                     
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     print("Picture Sent Sound Played")
@@ -586,7 +589,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                     
                     let text = "[\(kVIDEO)]"
                     
-                    outgoingMessage = OutgoingMessages(message: text, video: videoLink!, thumbNail: dataThumbNail! as NSData,senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
+                    let encryptedText = Encryption.encryptText(chatRoomId: self.chatRoomId , message: text )
+                    
+                    outgoingMessage = OutgoingMessages(message: encryptedText, video: videoLink!, thumbNail: dataThumbNail! as NSData,senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kVIDEO)
                     
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     self.finishSendingMessage()
@@ -610,7 +615,10 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
                 if audioLink != nil {
                     let text = "[\(kAUDIO)]"
                     
-                    outgoingMessage = OutgoingMessages(message: text, audio: audioLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kAUDIO)
+                    
+                    let encryptedText = Encryption.encryptText(chatRoomId: self.chatRoomId , message: text )
+                    
+                    outgoingMessage = OutgoingMessages(message: encryptedText, audio: audioLink!, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kAUDIO)
                     
                     JSQSystemSoundPlayer.jsq_playMessageSentSound()
                     self.finishSendingMessage()
@@ -628,7 +636,9 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
             let latitude: NSNumber = NSNumber(value: appDelegate.coordinates!.latitude)
             let longitude: NSNumber = NSNumber(value: appDelegate.coordinates!.longitude)
             let text = "[\(kLOCATION)]"
-            outgoingMessage = OutgoingMessages(message: text, latitude: latitude, longitude: longitude, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
+             let encryptedText = Encryption.encryptText(chatRoomId: self.chatRoomId , message: text )
+            
+            outgoingMessage = OutgoingMessages(message: encryptedText, latitude: latitude, longitude: longitude, senderId: currentUser.objectId, senderName: currentUser.firstname, date: date, status: kDELIVERED, type: kLOCATION)
             
             
         }
