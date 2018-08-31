@@ -120,9 +120,14 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         
         createTypingObserver()
+        loadUserDefaults()
         
         navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "Back"), style: .plain, target: self, action: #selector(self.backAction))]
+        
+        if isGroup! {
+            getCurrentGroup(withId: chatRoomId)
+        }
         
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
@@ -912,9 +917,12 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
     }
     
-    @objc func showGroup()
-    {
+    @objc func showGroup() {
         
+        let groupVC = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "groupView") as! GroupViewController
+        
+        groupVC.group = group!
+        self.navigationController?.pushViewController(groupVC, animated: true)
     }
     
     
@@ -1073,6 +1081,34 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
     
     //MARK: Helper Function
     
+    func loadUserDefaults() {
+        
+        firstLoad = userDefaults.bool(forKey: kFIRSTRUN)
+        
+        if !firstLoad! {
+            userDefaults.set(true, forKey: kFIRSTRUN)
+            userDefaults.set(showAvatars, forKey: kSHOWAVATAR)
+            
+            userDefaults.synchronize()
+        }
+        
+        showAvatars = userDefaults.bool(forKey: kSHOWAVATAR)
+        checkForBackgroundImage()
+    }
+    
+    func checkForBackgroundImage() {
+        
+        if userDefaults.object(forKey: kBACKGROUBNDIMAGE) != nil {
+            self.collectionView.backgroundColor = .clear
+            
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+            imageView.image = UIImage(named: userDefaults.object(forKey: kBACKGROUBNDIMAGE) as! String)!
+            imageView.contentMode = .scaleAspectFill
+            
+            self.view.insertSubview(imageView, at: 0)
+        }
+    }
+    
     
     func addNewPictureMessageLink(link: String) {
         
@@ -1148,6 +1184,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         }
         
         avatarButton.addTarget(self, action: #selector(self.showUserProfile), for: .touchUpInside)
+    }
+    
+    
+    func setUIForGroupChat() {
+        
+        imageFromData(pictureData: (group![kAVATAR] as! String)) { (image) in
+            
+            if image != nil {
+                avatarButton.setImage(image!.circleMasked, for: .normal)
+            }
+        }
+        
+        titleLabel.text = viewTitle
+        subTitle.text = ""
     }
     
     func removeBadMessages(allMessages: [NSDictionary]) -> [NSDictionary]{
@@ -1272,6 +1322,20 @@ class ChatViewController: JSQMessagesViewController, UIImagePickerControllerDele
         
         if updatedChatListener != nil {
             updatedChatListener!.remove()
+        }
+    }
+    
+    
+    func getCurrentGroup(withId: String) {
+        
+        reference(.Group).document(withId).getDocument { (snapshot, error) in
+            
+            guard let snapshot = snapshot else { return }
+            
+            if snapshot.exists {
+                self.group = snapshot.data() as! NSDictionary
+                self.setUIForGroupChat()
+            }
         }
     }
 }

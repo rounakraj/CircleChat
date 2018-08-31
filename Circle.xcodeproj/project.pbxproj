@@ -20,6 +20,11 @@
 		8D143D5B20DCF8B8006E5451 /* CircleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D143D5A20DCF8B8006E5451 /* CircleTests.swift */; };
 		8D143D6620DCF8B8006E5451 /* CircleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D143D6520DCF8B8006E5451 /* CircleUITests.swift */; };
 		8D1DD30320E040920046BD7D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1DD30220E040920046BD7D /* GoogleService-Info.plist */; };
+		8D2B3E0E21399D5000551F23 /* GroupMemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B3E0D21399D5000551F23 /* GroupMemberCollectionViewCell.swift */; };
+		8D2B3E1021399FA200551F23 /* NewGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B3E0F21399FA200551F23 /* NewGroupViewController.swift */; };
+		8D2B3E122139A51300551F23 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B3E112139A51300551F23 /* Group.swift */; };
+		8D2B3E142139C6E600551F23 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B3E132139C6E600551F23 /* GroupViewController.swift */; };
+		8D2B3E162139CC2000551F23 /* InviteUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B3E152139CC2000551F23 /* InviteUsersTableViewController.swift */; };
 		8D475D7D20FA7D6800EDF480 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D7C20FA7D6800EDF480 /* Camera.swift */; };
 		8D475D7F20FA8AA800EDF480 /* Downloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D7E20FA8AA800EDF480 /* Downloads.swift */; };
 		8D475D8120FB205700EDF480 /* PhotoMediaItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */; };
@@ -94,6 +99,11 @@
 		8D143D6520DCF8B8006E5451 /* CircleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleUITests.swift; sourceTree = "<group>"; };
 		8D143D6720DCF8B8006E5451 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1DD30220E040920046BD7D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8D2B3E0D21399D5000551F23 /* GroupMemberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberCollectionViewCell.swift; sourceTree = "<group>"; };
+		8D2B3E0F21399FA200551F23 /* NewGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGroupViewController.swift; sourceTree = "<group>"; };
+		8D2B3E112139A51300551F23 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		8D2B3E132139C6E600551F23 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		8D2B3E152139CC2000551F23 /* InviteUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteUsersTableViewController.swift; sourceTree = "<group>"; };
 		8D45746F21184BB2002FF2D4 /* ImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D475D7C20FA7D6800EDF480 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
 		8D475D7E20FA8AA800EDF480 /* Downloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Downloads.swift; sourceTree = "<group>"; };
@@ -246,6 +256,7 @@
 				8D6454EA20FFB636002367C6 /* CountryCode.swift */,
 				8DC6F62C20E406A300175322 /* Recents.swift */,
 				8D475D7C20FA7D6800EDF480 /* Camera.swift */,
+				8D2B3E112139A51300551F23 /* Group.swift */,
 				8D475D8020FB205700EDF480 /* PhotoMediaItem.swift */,
 				8D475D8220FB454100EDF480 /* VideoMessage.swift */,
 				8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */,
@@ -262,6 +273,7 @@
 				8DBD390B20E259C000714FBB /* UserTableViewCell.swift */,
 				8DC6F62E20E4F0C300175322 /* RecentChatTableViewCell.swift */,
 				8D6454E620FE5CAB002367C6 /* PictureCollectionViewCell.swift */,
+				8D2B3E0D21399D5000551F23 /* GroupMemberCollectionViewCell.swift */,
 				8D0CDD2F2113348700D69A0B /* BackgroundCollectionViewCell.swift */,
 			);
 			path = CustomCells;
@@ -297,6 +309,9 @@
 				8D0CDD3121133C1A00D69A0B /* T&CViewController.swift */,
 				8D0CDD33211341F000D69A0B /* EditProfileTableViewController.swift */,
 				8D6454E820FFB442002367C6 /* ContactsTableViewController.swift */,
+				8D2B3E0F21399FA200551F23 /* NewGroupViewController.swift */,
+				8D2B3E132139C6E600551F23 /* GroupViewController.swift */,
+				8D2B3E152139CC2000551F23 /* InviteUsersTableViewController.swift */,
 				8DC6F63020E7EDFC00175322 /* ChatViewController.swift */,
 			);
 			path = SecondaryViews;
@@ -663,16 +678,21 @@
 				8DC6F62F20E4F0C300175322 /* RecentChatTableViewCell.swift in Sources */,
 				8D0CDD34211341F000D69A0B /* EditProfileTableViewController.swift in Sources */,
 				8DB8C02820E8B3B700009943 /* OutgoingMessages.swift in Sources */,
+				8D2B3E1021399FA200551F23 /* NewGroupViewController.swift in Sources */,
 				8D475D8720FCC79500EDF480 /* MapViewController.swift in Sources */,
+				8D2B3E162139CC2000551F23 /* InviteUsersTableViewController.swift in Sources */,
 				8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */,
 				8D475D7D20FA7D6800EDF480 /* Camera.swift in Sources */,
+				8D2B3E0E21399D5000551F23 /* GroupMemberCollectionViewCell.swift in Sources */,
 				8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */,
 				8DBD390A20E241D000714FBB /* SettingsTableViewController.swift in Sources */,
 				8DBD391320E3E08C00714FBB /* ProfileTableViewController.swift in Sources */,
+				8D2B3E142139C6E600551F23 /* GroupViewController.swift in Sources */,
 				8D8B5FD62118350500BB9830 /* Encryption.swift in Sources */,
 				8D6454E520FE55E4002367C6 /* PictureCollectionViewController.swift in Sources */,
 				8DBD391120E2D1BE00714FBB /* ChatsViewController.swift in Sources */,
 				8D143D4620DCF8B6006E5451 /* AppDelegate.swift in Sources */,
+				8D2B3E122139A51300551F23 /* Group.swift in Sources */,
 				8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */,
 				8DBD390F20E2C51100714FBB /* UsersTableViewController.swift in Sources */,
 				8D475D7F20FA8AA800EDF480 /* Downloads.swift in Sources */,

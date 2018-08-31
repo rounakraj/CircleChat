@@ -135,7 +135,7 @@ func restartRecenChat(recent: NSDictionary){
     
     if recent[kTYPE] as? String == kGROUP{
         
-        createRecentsChat(members: recent[kMEMBERSTOPUSH] as! [String], chatRoomId: recent[kCHATROOMID] as! String, withUserName: recent[kWITHUSERUSERNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: recent[kAVATAR] as! String)
+        createRecentsChat(members: recent[kMEMBERSTOPUSH] as! [String], chatRoomId: recent[kCHATROOMID] as! String, withUserName: recent[kWITHUSERFULLNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: recent[kAVATAR] as? String)
     }
 }
 
@@ -215,6 +215,25 @@ func clearRecentCounterItems(recent: NSDictionary){
     print("Clear Recent Counter")
     reference(.Recent).document(recent[kRECENTID] as! String).updateData([kCOUNTER : 0])
 }
+
+
+
+//group
+
+func startGroupChat(group: Group) {
+    
+    let chatRoomId = group.groupDictionary[kGROUPID] as! String
+    let members = group.groupDictionary[kMEMBERS] as! [String]
+    
+    createRecentsChat(members: members, chatRoomId: chatRoomId, withUserName: group.groupDictionary[kNAME] as! String, type: kGROUP, users: nil, avatarOfGroup: group.groupDictionary[kAVATAR] as? String)
+}
+
+func createRecentsForNewMembers(groupId: String, groupName: String, membersToPush: [String], avatar: String) {
+    
+    createRecentsChat(members: membersToPush, chatRoomId: groupId, withUserName: groupName, type: kGROUP, users: nil, avatarOfGroup: avatar)
+}
+
+
 
 
 //Update Recents in Firebase
