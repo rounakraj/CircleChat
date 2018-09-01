@@ -22,8 +22,8 @@ public let APP_STARTED_NOTIFICATION = "AppStartedNotification"
 //IDS and Keys
 public let kFILEREFERENCE = "gs://circlechat-15dbe.appspot.com"
 public let kONESIGNALAPPID = "5d500682-05d6-44a4-bdfd-6a3f79460589"
-public let kSINCHKEY = ""
-public let kSINCHSECRET = ""
+public let kSINCHKEY = "826be916-c534-4bd4-a969-dc0496d3187f"
+public let kSINCHSECRET = "xgkwdVM2E0mzP3cz5/I68g=="
 public let kAPPURL = ""
 
 

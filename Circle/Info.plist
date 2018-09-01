@@ -34,6 +34,10 @@
 	<string>Circle Chat would like to access your Microphone for placing calls and sending audio messages</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Circle Chat would like to access your Photo Library</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

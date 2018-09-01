@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Circle
+
+  Created by Kumar Rounak on 02/09/18.
+  Copyright © 2018 Kumar Rounak. All rights reserved.
+*/
+
+"SIN_INCOMING_CALL" = "Incoming Call";
+"SIN_CANCEL_CALL" = "Cancel Call";
+

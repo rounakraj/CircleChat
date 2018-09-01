@@ -18,6 +18,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var callButtonOutlet: UIButton!
     @IBOutlet weak var textButtonOutlet: UIButton!
     @IBOutlet weak var blockUserOutlet: UIButton!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var user: FUser?
     
@@ -28,6 +29,16 @@ class ProfileTableViewController: UITableViewController {
     
     
     @IBAction func callButtonPressed(_ sender: Any) {
+        
+        //Call user
+        
+        callUser()
+        
+        let currentUser = FUser.currentUser()!
+        
+        let call = CallClass(_callerId: currentUser.objectId, _withUserId: user!.objectId, _callerFullName: currentUser.fullname, _withUserFullName: user!.fullname)
+        
+        call.saveCallInBackground()
     }
     
     
@@ -161,6 +172,20 @@ class ProfileTableViewController: UITableViewController {
         
     }
     
+    //MARK: CallUser
     
+    func callClient() -> SINCallClient {
+        
+        return appDelegate._client.call()
+    }
+    func callUser() {
+        let userToCall = user!.objectId
+        let call = callClient().callUser(withId: userToCall)
+        
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+        
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
+    }
     
 }
