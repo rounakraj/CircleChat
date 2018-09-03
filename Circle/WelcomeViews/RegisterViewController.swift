@@ -52,6 +52,16 @@ class RegisterViewController: UIViewController, ImagePickerDelegate {
         }
         
     }
+    
+    func backViewController() -> UIViewController? {
+        let numberOfViewControllers = self.navigationController!.viewControllers.count
+        if numberOfViewControllers < 2 {
+            return nil
+        }
+        else {
+            return self.navigationController!.viewControllers[numberOfViewControllers - 2]
+        }
+    }
     //MARK: IBActions
     
     @IBAction func avatarImageTapped(_ sender: Any) {
@@ -102,17 +112,23 @@ class RegisterViewController: UIViewController, ImagePickerDelegate {
         
         dismissKeyboard()
         ProgressHUD.show("Registering....")
-        FUser.registerUserWith(email: emailTextField.text!, password: passwordTextField.text!, firstName: usernameTextField.text!, lastName: surnameTextField.text!) { (error) in
-            
-            if error != nil{
-                ProgressHUD.dismiss()
-                ProgressHUD.showError(error!.localizedDescription)
-                return
+        
+        if let _ = self.backViewController() as? LoginViewController  {
+            FUser.registerUserWith(email: emailTextField.text!, password: passwordTextField.text!, firstName: usernameTextField.text!, lastName: surnameTextField.text!) { (error) in
+                
+                if error != nil{
+                    ProgressHUD.dismiss()
+                    ProgressHUD.showError(error!.localizedDescription)
+                    return
+                }
+                
+                self.registerMyUser()
+                
             }
-            
-            self.registerMyUser()
-            
+        } else {
+         self.registerMyUser()
         }
+        
         
         
         

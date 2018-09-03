@@ -225,7 +225,7 @@ class FUser {
     
     //phoneNumberRegistration
     
- /*   class func registerUserWith(phoneNumber: String, verificationCode: String, verificationId: String!, completion: @escaping (_ error: Error?, _ shouldLogin: Bool) -> Void) {
+  class func registerUserWith(phoneNumber: String, verificationCode: String, verificationId: String!, completion: @escaping (_ error: Error?, _ shouldLogin: Bool) -> Void) {
         
         
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationId, verificationCode: verificationCode)
@@ -264,7 +264,7 @@ class FUser {
             
         }
         
-    }*/
+    }
     
     
     //MARK: LogOut func

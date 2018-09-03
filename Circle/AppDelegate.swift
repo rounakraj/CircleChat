@@ -8,48 +8,43 @@
 
 import UIKit
 import Firebase
-
 import CoreLocation
-
 import OneSignal
 import PushKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, SINClientDelegate, SINCallClientDelegate, SINManagedPushDelegate, PKPushRegistryDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate, SINClientDelegate, SINManagedPushDelegate, SINCallClientDelegate, PKPushRegistryDelegate {
     
-    
-
     var window: UIWindow?
     var authListener: AuthStateDidChangeListenerHandle?
     
     var locationManager: CLLocationManager?
     var coordinates: CLLocationCoordinate2D?
     
-    
     var _client: SINClient!
     var push: SINManagedPush!
+    var callKitProvider: SINCallKitProvider!
     
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         
         FirebaseApp.configure()
         
         //AutoLogin
-        
-        authListener = Auth.auth().addStateDidChangeListener({(auth, user) in
+        authListener = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            
             Auth.auth().removeStateDidChangeListener(self.authListener!)
+            
             if user != nil {
-                if (UserDefaults.standard.object(forKey: kCURRENTUSER) != nil)
-                {
+                
+                if UserDefaults.standard.object(forKey: kCURRENTUSER) != nil {
+                    
                     DispatchQueue.main.async {
                         self.goToApp()
+                        
                     }
-                    
                 }
             }
-            
         })
         
         self.voipRegistration()
@@ -58,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         self.push.setDesiredPushTypeAutomatically()
         
         func userDidLogin(userId: String) {
+            
             self.push.registerUserNotificationSettings()
             self.initSinchWithUserId(userId: userId)
             self.startOneSignal()
@@ -68,16 +64,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let userId = note.userInfo![kUSERID] as! String
             UserDefaults.standard.set(userId, forKey: kUSERID)
             UserDefaults.standard.synchronize()
-            userDidLogin(userId: userId)
             
+            userDidLogin(userId: userId)
         }
-        OneSignal.initWithLaunchOptions(launchOptions, appId: kONESIGNALAPPID)
+        
+        
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound], completionHandler: { (granted, error) in
+            })
+            application.registerForRemoteNotifications()
+        } else {
+            let types: UIUserNotificationType = [.alert, .badge, .sound]
+            let settings = UIUserNotificationSettings(types: types, categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        
+        OneSignal.initWithLaunchOptions(launchOptions, appId: kONESIGNALAPPID, handleNotificationReceived: nil, handleNotificationAction: nil, settings: [kOSSettingsKeyInAppAlerts : false])
+        
         
         return true
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
+        
         var top = self.window?.rootViewController
+        
         while top?.presentedViewController != nil {
             top = top?.presentedViewController
         }
@@ -86,9 +98,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             setBadges(controller: top as! UITabBarController)
         }
         
+        
         if FUser.currentUser() != nil {
             updateCurrentUserInFirestore(withValues: [kISONLINE : true]) { (success) in
-                
             }
         }
         startLocationManager()
@@ -96,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        
         recentBadgeHandler?.remove()
         
         if FUser.currentUser() != nil {
@@ -106,53 +119,67 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         stopLocationManager()
     }
     
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    
-
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        
+        if callKitProvider != nil {
+            let call = callKitProvider.currentEstablishedCall()
+            
+            if call != nil {
+                var top = self.window?.rootViewController
+                
+                while (top?.presentedViewController != nil) {
+                    top = top?.presentedViewController
+                }
+                
+                
+                if !(top! is CallViewController) {
+                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+                    
+                    callVC._call = call
+                    
+                    top?.present(callVC, animated: true, completion: nil)
+                }
+            }
+        }
+        // If there is one established call, show the callView of the current call when the App is brought to foreground.
+        // This is mainly to handle the UI transition when clicking the App icon on the lockscreen CallKit UI.
+        
     }
     
-    //MARK: goToApp
-    func goToApp()
-    {
+    
+    
+    
+    //MARK: GoToApp
+    
+    func goToApp() {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: USER_DID_LOGIN_NOTIFICATION), object: nil, userInfo: [kUSERID : FUser.currentId()])
+        
         let mainView = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainApplication") as! UITabBarController
         
         self.window?.rootViewController = mainView
-        
-        //present the app here
-        print("Show the App")
-        
-        
-        
     }
     
     
-    //MARK: PUSHNOTIFICATION FUNCTIONS
-    
+    //MARK: PushNotification functions
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        self.push.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+        //        self.push.application(application, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+        
+        Auth.auth().setAPNSToken(deviceToken, type:AuthAPNSTokenType.sandbox)
     }
     
+    
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        print("rem not with fetch")
         
         let firebaseAuth = Auth.auth()
-        if firebaseAuth.canHandleNotification(userInfo) {
+        if (firebaseAuth.canHandleNotification(userInfo)){
             return
         } else {
-            self.push.application(application, didReceiveRemoteNotification: userInfo)
+            //            self.push.application(application, didReceiveRemoteNotification: userInfo)
         }
+        
     }
     
     //MARK: Location Manager Delegate
@@ -177,8 +204,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             locationManager!.stopUpdatingLocation()
         }
     }
-
-   //Delegate
+    
+    //MARK: Location Manager delegate
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
@@ -207,12 +234,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         coordinates = locations.last!.coordinate
-        
     }
+    
     
     //MARK: OneSignal
     
     func startOneSignal() {
+        
         let status: OSPermissionSubscriptionState = OneSignal.getPermissionSubscriptionState()
         
         let userID = status.subscriptionStatus.userId
@@ -226,18 +254,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             }
             UserDefaults.standard.synchronize()
         }
-        //updateOneSignalID
         
+        //updateOneSignalId
         updateOneSignalId()
     }
     
-    //MARK: SINCH
     
-    func initSinchWithUserId(userId: String)
-    {
+    //MARK: Sinch
+    
+    func initSinchWithUserId(userId: String) {
+        
         if _client == nil {
             
-            _client = Sinch.client(withApplicationKey: kSINCHKEY, applicationSecret: kSINCHSECRET, environmentHost: "sandbox.sinch.com", userId: userId)
+            _client = Sinch.client(withApplicationKey: kSINCHKEY, applicationSecret: kSINCHSECRET, environmentHost: "clientapi.sinch.com", userId: userId)
             
             _client.delegate = self
             _client.call()?.delegate = self
@@ -247,31 +276,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             _client.start()
             _client.startListeningOnActiveConnection()
             
+            callKitProvider = SINCallKitProvider(withClient: _client)
         }
-        
     }
     
-
-    
-    //MARK: SINCH MANAGED PUSH DELEGATE
+    //MARK: SinchManagedPushDelegate
     
     func managedPush(_ managedPush: SINManagedPush!, didReceiveIncomingPushWithPayload payload: [AnyHashable : Any]!, forType pushType: String!) {
-        
-        let result = SINPushHelper.queryPushNotificationPayload(payload)
-        
-        if result!.isCall() {
-            print("Incoming Push Payload")
-            //handle remote notifications
+        print("managed push")
+        if pushType == "PKPushTypeVoIP" {
             self.handleRemoteNotification(userInfo: payload as NSDictionary)
         }
     }
     
-    
     func handleRemoteNotification(userInfo: NSDictionary) {
-        
+        print("got rem not")
         if _client == nil {
-            let userId = UserDefaults.standard.object(forKey: kUSERID)
-            if userId != nil {
+            if let userId = UserDefaults.standard.object(forKey: kUSERID) {
                 self.initSinchWithUserId(userId: userId as! String)
             }
         }
@@ -279,20 +300,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         let result = self._client.relayRemotePushNotification(userInfo as! [AnyHashable : Any])
         
         if result!.isCall() {
-            print("Handle Call Notification")
+            print("handle call notification")
         }
         
         if result!.isCall() && result!.call()!.isCallCanceled {
-            
-            print("Missed Call")
             self.presentMissedCallNotificationWithRemoteUserId(userId: result!.call()!.callId)
         }
+        
     }
     
     func presentMissedCallNotificationWithRemoteUserId(userId: String) {
         
         if UIApplication.shared.applicationState == .background {
+            
             let center = UNUserNotificationCenter.current()
+            
             let content = UNMutableNotificationContent()
             content.title = "Missed Call"
             content.body = "From \(userId)"
@@ -303,6 +325,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             let request = UNNotificationRequest(identifier: "ContentIdentifier", content: content, trigger: trigger)
             
             center.add(request) { (error) in
+                
                 if error != nil {
                     print("error on notification", error!.localizedDescription)
                 }
@@ -310,35 +333,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         }
     }
     
-    
     //MARK: SinchCallClientDelegate
     
     func client(_ client: SINCallClient!, willReceiveIncomingCall call: SINCall!) {
-        
-        print("will receive incoming call")
+        print("will receive")
+        callKitProvider.reportNewIncomingCall(call: call)
     }
+    
     
     func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
         
-        print("did receive call")
+        print("........did receive call")
         
         //present call view
-        
         var top = self.window?.rootViewController
         
-        while(top?.presentedViewController != nil) {
-            
+        while (top?.presentedViewController != nil) {
             top = top?.presentedViewController
         }
         
-       let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:  "CallVC") as! CallViewController
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
         
         callVC._call = call
-        top?.present(callVC,animated: true, completion: nil)
-        
+        top?.present(callVC, animated: true, completion: nil)
     }
     
-    //MARK: SinchClientDelegate
+    //MARK:  SinchClintDelegate
     
     func clientDidStart(_ client: SINClient!) {
         print("Sinch did start")
@@ -349,8 +369,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func clientDidFail(_ client: SINClient!, error: Error!) {
-        print("Sinch did fail\(error.localizedDescription)")
+        print("Sinch did fail \(error.localizedDescription)")
     }
+    
     
     func voipRegistration() {
         
@@ -371,5 +392,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         self.handleRemoteNotification(userInfo: payload.dictionaryPayload as NSDictionary)
     }
     
- }
+}
 

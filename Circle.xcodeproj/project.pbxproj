@@ -44,6 +44,9 @@
 		8D50BB39213B292200B2E6D6 /* ringback.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D50BB37213B292200B2E6D6 /* ringback.wav */; };
 		8D50BB3B213B35B700B2E6D6 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D50BB3A213B35B700B2E6D6 /* Badge.swift */; };
 		8D50BB3D213B3A7200B2E6D6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D50BB3C213B3A7200B2E6D6 /* Localizable.strings */; };
+		8D50BB3F213BACFD00B2E6D6 /* PhoneNumberLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D50BB3E213BACFC00B2E6D6 /* PhoneNumberLoginViewController.swift */; };
+		8D50BB42213C476E00B2E6D6 /* AudioControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D50BB40213C476C00B2E6D6 /* AudioControllerDelegate.swift */; };
+		8D50BB43213C476E00B2E6D6 /* SINCallKitProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D50BB41213C476E00B2E6D6 /* SINCallKitProvider.swift */; };
 		8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58720F20E031F900E8DE46 /* LoginViewController.swift */; };
 		8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58721120E0320600E8DE46 /* RegisterViewController.swift */; };
 		8D6454E520FE55E4002367C6 /* PictureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6454E420FE55E4002367C6 /* PictureCollectionViewController.swift */; };
@@ -161,6 +164,9 @@
 		8D50BB37213B292200B2E6D6 /* ringback.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringback.wav; sourceTree = "<group>"; };
 		8D50BB3A213B35B700B2E6D6 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		8D50BB3C213B3A7200B2E6D6 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		8D50BB3E213BACFC00B2E6D6 /* PhoneNumberLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberLoginViewController.swift; sourceTree = "<group>"; };
+		8D50BB40213C476C00B2E6D6 /* AudioControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioControllerDelegate.swift; sourceTree = "<group>"; };
+		8D50BB41213C476E00B2E6D6 /* SINCallKitProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SINCallKitProvider.swift; sourceTree = "<group>"; };
 		8D58720F20E031F900E8DE46 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8D58721120E0320600E8DE46 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		8D6454E420FE55E4002367C6 /* PictureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewController.swift; sourceTree = "<group>"; };
@@ -271,6 +277,8 @@
 			children = (
 				8D2B3E172139E49300551F23 /* Circle.entitlements */,
 				8D143D4520DCF8B6006E5451 /* AppDelegate.swift */,
+				8D50BB40213C476C00B2E6D6 /* AudioControllerDelegate.swift */,
+				8D50BB41213C476E00B2E6D6 /* SINCallKitProvider.swift */,
 				8D3D728320E0F24700A5C063 /* Classes */,
 				8D3D728220E0F22500A5C063 /* Helpers */,
 				8DC6F62920E4031000175322 /* WelcomeViews */,
@@ -367,6 +375,7 @@
 			children = (
 				8D58720F20E031F900E8DE46 /* LoginViewController.swift */,
 				8D58721120E0320600E8DE46 /* RegisterViewController.swift */,
+				8D50BB3E213BACFC00B2E6D6 /* PhoneNumberLoginViewController.swift */,
 			);
 			path = WelcomeViews;
 			sourceTree = "<group>";
@@ -837,8 +846,10 @@
 				8D6454EB20FFB636002367C6 /* CountryCode.swift in Sources */,
 				8D2B3E19213A5EC300551F23 /* PushNotifications.swift in Sources */,
 				8D50BB35213B21C000B2E6D6 /* CallViewController.swift in Sources */,
+				8D50BB43213C476E00B2E6D6 /* SINCallKitProvider.swift in Sources */,
 				8DBD390C20E259C000714FBB /* UserTableViewCell.swift in Sources */,
 				8D7CE37020E0C96500C63D04 /* Constants.swift in Sources */,
+				8D50BB42213C476E00B2E6D6 /* AudioControllerDelegate.swift in Sources */,
 				8D475D8320FB454100EDF480 /* VideoMessage.swift in Sources */,
 				8D0CDD3221133C1A00D69A0B /* T&CViewController.swift in Sources */,
 				8D475D8120FB205700EDF480 /* PhotoMediaItem.swift in Sources */,
@@ -853,6 +864,7 @@
 				8D475D8720FCC79500EDF480 /* MapViewController.swift in Sources */,
 				8D2B3E162139CC2000551F23 /* InviteUsersTableViewController.swift in Sources */,
 				8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */,
+				8D50BB3F213BACFD00B2E6D6 /* PhoneNumberLoginViewController.swift in Sources */,
 				8D475D7D20FA7D6800EDF480 /* Camera.swift in Sources */,
 				8D2B3E0E21399D5000551F23 /* GroupMemberCollectionViewCell.swift in Sources */,
 				8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */,
@@ -1199,6 +1211,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THC6677W2Z;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1220,6 +1233,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = THC6677W2Z;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

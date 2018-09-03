@@ -25,6 +25,9 @@ class CallTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        
+        print("Call Cell is Selected")
+        
     }
     
     func generateCellWith(call: CallClass){
