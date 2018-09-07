@@ -58,6 +58,7 @@
 		8D7CE37020E0C96500C63D04 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE36F20E0C96500C63D04 /* Constants.swift */; };
 		8D7CE37220E0CBDD00C63D04 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE37120E0CBDD00C63D04 /* HelperFunctions.swift */; };
 		8D7CE37420E0CC6A00C63D04 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE37320E0CC6A00C63D04 /* CollectionReference.swift */; };
+		8D7E7A722142FD61000CCF20 /* MainUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E7A712142FD61000CCF20 /* MainUsersTableViewController.swift */; };
 		8D8B5FD62118350500BB9830 /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8B5FD52118350500BB9830 /* Encryption.swift */; };
 		8DB8C02820E8B3B700009943 /* OutgoingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */; };
 		8DB8C02A20E9071B00009943 /* IncomingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8C02920E9071B00009943 /* IncomingMessages.swift */; };
@@ -179,6 +180,7 @@
 		8D7CE36F20E0C96500C63D04 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8D7CE37120E0CBDD00C63D04 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
 		8D7CE37320E0CC6A00C63D04 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
+		8D7E7A712142FD61000CCF20 /* MainUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsersTableViewController.swift; sourceTree = "<group>"; };
 		8D8B5FD52118350500BB9830 /* Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
 		8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessages.swift; sourceTree = "<group>"; };
 		8DB8C02920E9071B00009943 /* IncomingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessages.swift; sourceTree = "<group>"; };
@@ -388,6 +390,7 @@
 				8DBD390920E241D000714FBB /* SettingsTableViewController.swift */,
 				8DBD391020E2D1BE00714FBB /* ChatsViewController.swift */,
 				8D50BB2C213AECB400B2E6D6 /* CallTableViewController.swift */,
+				8D7E7A712142FD61000CCF20 /* MainUsersTableViewController.swift */,
 			);
 			path = MainViews;
 			sourceTree = "<group>";
@@ -850,6 +853,7 @@
 				8D2B3E19213A5EC300551F23 /* PushNotifications.swift in Sources */,
 				8D50BB35213B21C000B2E6D6 /* CallViewController.swift in Sources */,
 				8D50BB43213C476E00B2E6D6 /* SINCallKitProvider.swift in Sources */,
+				8D7E7A722142FD61000CCF20 /* MainUsersTableViewController.swift in Sources */,
 				8DBD390C20E259C000714FBB /* UserTableViewCell.swift in Sources */,
 				8D7CE37020E0C96500C63D04 /* Constants.swift in Sources */,
 				8D50BB42213C476E00B2E6D6 /* AudioControllerDelegate.swift in Sources */,

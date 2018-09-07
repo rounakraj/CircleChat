@@ -15,6 +15,7 @@ class CallTableViewCell: UITableViewCell {
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var callDirectionImageOutlet: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,18 +34,30 @@ class CallTableViewCell: UITableViewCell {
     func generateCellWith(call: CallClass){
         dateLabel.text = formatCallTime(date: call.callDate)
         statusLabel.text = ""
+        if FUser.currentUser()!.avatar != ""
+        {
+            imageFromData(pictureData: FUser.currentUser()!.avatar) { (avatarImage) in
+                if avatarImage != nil {
+                    self.avatarImageView.image = avatarImage!.circleMasked
+                }
+                
+            }
+        }
         if (call.callerId == FUser.currentId()) {
             
             statusLabel.text = "Outgoing Call"
             fullNameLabel.text = call.withUserFullName
             
-           // avatarImageView.image = UIImage(named: "Outgoing")
+            callDirectionImageOutlet.image = UIImage(named: "outgoing")
         } else {
             
             statusLabel.text = "Incoming Call"
             fullNameLabel.text = call.callerFullName
-           // avatarImageView.image = UIImage(named: "Incoming")
+            callDirectionImageOutlet.image = UIImage(named: "incoming")
         }
         
     }
+    
+    
+    
 }
