@@ -112,7 +112,7 @@ class MainUsersTableViewController: UITableViewController, UserTableViewCellDele
             newMemberIds.append(selectedUser.objectId)
         }
         
-        self.navigationItem.rightBarButtonItem?.isEnabled = newMemberIds.count > 0
+       
     }
     
     

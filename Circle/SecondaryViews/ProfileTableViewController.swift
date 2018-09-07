@@ -18,6 +18,8 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var callButtonOutlet: UIButton!
     @IBOutlet weak var textButtonOutlet: UIButton!
     @IBOutlet weak var blockUserOutlet: UIButton!
+    @IBOutlet weak var videoCallButtonOutlet: UIButton!
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var user: FUser?
@@ -27,6 +29,19 @@ class ProfileTableViewController: UITableViewController {
     
     //IBActions
     
+    @IBAction func videoCallButtonPressed(_ sender: Any) {
+        print("Video Call Button Pressed")
+        //Call user
+        
+        callUserVideo()
+        
+        let currentUser = FUser.currentUser()!
+        
+        let call = CallClass(_callerId: currentUser.objectId, _withUserId: user!.objectId, _callerFullName: currentUser.fullname, _withUserFullName: user!.fullname)
+        
+        call.saveCallInBackground()
+        
+    }
     
     @IBAction func callButtonPressed(_ sender: Any) {
         
@@ -153,11 +168,13 @@ class ProfileTableViewController: UITableViewController {
             blockUserOutlet.isHidden = false
             callButtonOutlet.isHidden = false
             textButtonOutlet.isHidden = false
+            videoCallButtonOutlet.isHidden = false
         } else {
             
             blockUserOutlet.isHidden = true
             callButtonOutlet.isHidden = true
             textButtonOutlet.isHidden = true
+            videoCallButtonOutlet.isHidden = true
         }
         
         if FUser.currentUser()!.blockedUsers.contains(user!.objectId){
@@ -180,10 +197,18 @@ class ProfileTableViewController: UITableViewController {
     }
     func callUser() {
         let userToCall = user!.objectId
+        let call = callClient().callUser(withId: userToCall)
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+        
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
+    }
+    
+    
+    func callUserVideo() {
+        let userToCall = user!.objectId
         let call = callClient().callUserVideo(withId: userToCall)
-        
         let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
-        
         callVC._call = call
         self.present(callVC, animated: true, completion: nil)
     }
