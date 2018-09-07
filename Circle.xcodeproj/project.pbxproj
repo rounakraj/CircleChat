@@ -53,6 +53,7 @@
 		8D6454E720FE5CAB002367C6 /* PictureCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6454E620FE5CAB002367C6 /* PictureCollectionViewCell.swift */; };
 		8D6454E920FFB442002367C6 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6454E820FFB442002367C6 /* ContactsTableViewController.swift */; };
 		8D6454EB20FFB636002367C6 /* CountryCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6454EA20FFB636002367C6 /* CountryCode.swift */; };
+		8D64C64F213EC4AA00FDD7E5 /* VideoCallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64C64E213EC4AA00FDD7E5 /* VideoCallViewController.swift */; };
 		8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE36D20E0C92A00C63D04 /* FUser.swift */; };
 		8D7CE37020E0C96500C63D04 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE36F20E0C96500C63D04 /* Constants.swift */; };
 		8D7CE37220E0CBDD00C63D04 /* HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE37120E0CBDD00C63D04 /* HelperFunctions.swift */; };
@@ -173,6 +174,7 @@
 		8D6454E620FE5CAB002367C6 /* PictureCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCollectionViewCell.swift; sourceTree = "<group>"; };
 		8D6454E820FFB442002367C6 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 		8D6454EA20FFB636002367C6 /* CountryCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCode.swift; sourceTree = "<group>"; };
+		8D64C64E213EC4AA00FDD7E5 /* VideoCallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCallViewController.swift; sourceTree = "<group>"; };
 		8D7CE36D20E0C92A00C63D04 /* FUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FUser.swift; path = "../New Group/FUser.swift"; sourceTree = "<group>"; };
 		8D7CE36F20E0C96500C63D04 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8D7CE37120E0CBDD00C63D04 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				8D2B3E152139CC2000551F23 /* InviteUsersTableViewController.swift */,
 				8DC6F63020E7EDFC00175322 /* ChatViewController.swift */,
 				8D50BB34213B21C000B2E6D6 /* CallViewController.swift */,
+				8D64C64E213EC4AA00FDD7E5 /* VideoCallViewController.swift */,
 			);
 			path = SecondaryViews;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 				8D2B3E162139CC2000551F23 /* InviteUsersTableViewController.swift in Sources */,
 				8D58721220E0320600E8DE46 /* RegisterViewController.swift in Sources */,
 				8D50BB3F213BACFD00B2E6D6 /* PhoneNumberLoginViewController.swift in Sources */,
+				8D64C64F213EC4AA00FDD7E5 /* VideoCallViewController.swift in Sources */,
 				8D475D7D20FA7D6800EDF480 /* Camera.swift in Sources */,
 				8D2B3E0E21399D5000551F23 /* GroupMemberCollectionViewCell.swift in Sources */,
 				8D58721020E031F900E8DE46 /* LoginViewController.swift in Sources */,
@@ -1222,7 +1226,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1244,7 +1248,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 
                 
                 if !(top! is CallViewController) {
-                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
                     
                     callVC._call = call
                     
@@ -343,7 +343,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func client(_ client: SINCallClient!, didReceiveIncomingCall call: SINCall!) {
         
-        print("........did receive call")
+        print("SINCH........did receive call")
         
         //present call view
         var top = self.window?.rootViewController
@@ -352,7 +352,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             top = top?.presentedViewController
         }
         
-        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
         
         callVC._call = call
         top?.present(callVC, animated: true, completion: nil)
