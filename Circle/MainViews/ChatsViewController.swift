@@ -203,14 +203,14 @@ class ChatsViewController: UIViewController, UITableViewDelegate, UITableViewDat
     {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 45))
         let buttonView = UIView(frame: CGRect(x: 0, y: 5, width: tableView.frame.width, height: 35))
-        let groupButton = UIButton(frame: CGRect(x: tableView.frame.width - 110, y: 10, width: 100, height: 20))
+        let groupButton = UIButton(frame: CGRect(x: 0, y: 10, width: 100, height: 20))
         
         groupButton.addTarget(self, action: #selector(self.groupButtonPressed), for: .touchUpInside)
         groupButton.setTitle("New Group", for: .normal)
         let buttonColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1)
         groupButton.setTitleColor(buttonColor, for: .normal)
         
-        let lineView = UIView(frame: CGRect(x: 0, y: headerView.frame.height - 1, width: tableView.frame.width, height: 1))
+        let lineView = UIView(frame: CGRect(x: 0, y: headerView.frame.height - 1, width: tableView.frame.width + tableView.frame.width + 30, height: 1))
         lineView.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         
         
