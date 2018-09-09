@@ -83,21 +83,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="GVo-JO-iKt">
+                                <rect key="frame" x="127.66666666666669" y="505" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="iCb-dQ-9wa"/>
+                                    <constraint firstAttribute="height" constant="120" id="kap-cv-dQP"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vud-RT-32g">
-                                <rect key="frame" x="16" y="413" width="343" height="28"/>
+                                <rect key="frame" x="16" y="406" width="343" height="28"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                 <state key="normal" title="Login with mobile number"/>
                                 <connections>
                                     <segue destination="1p7-bn-Dfa" kind="show" id="VIg-Wq-ZWJ"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="GVo-JO-iKt">
-                                <rect key="frame" x="127.66666666666669" y="505" width="120" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="ZRs-0R-OSW"/>
-                                    <constraint firstAttribute="width" constant="120" id="dan-6A-lsw"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
@@ -105,7 +105,7 @@
                             <constraint firstItem="UPg-YP-YUo" firstAttribute="trailing" secondItem="WTM-F2-bW8" secondAttribute="trailing" id="2my-40-XIl"/>
                             <constraint firstItem="SRq-K1-tn4" firstAttribute="trailing" secondItem="gdo-1i-EVx" secondAttribute="trailingMargin" id="37T-IB-AgI"/>
                             <constraint firstItem="UPg-YP-YUo" firstAttribute="leading" secondItem="WTM-F2-bW8" secondAttribute="leading" id="7we-id-QZW"/>
-                            <constraint firstItem="GVo-JO-iKt" firstAttribute="centerX" secondItem="UPg-YP-YUo" secondAttribute="centerX" id="9Ag-7S-V8y"/>
+                            <constraint firstItem="GVo-JO-iKt" firstAttribute="centerX" secondItem="0r3-xQ-khf" secondAttribute="centerX" id="CjG-RR-gUa"/>
                             <constraint firstItem="UMv-oV-KnD" firstAttribute="trailing" secondItem="UPg-YP-YUo" secondAttribute="trailing" id="IK6-IQ-9uZ"/>
                             <constraint firstItem="0r3-xQ-khf" firstAttribute="bottom" secondItem="WTM-F2-bW8" secondAttribute="bottom" constant="19" id="JUw-fa-FKM"/>
                             <constraint firstItem="7NY-kL-o8z" firstAttribute="trailing" secondItem="0VR-5N-Cz4" secondAttribute="trailing" id="KWZ-4Z-Wlf"/>
@@ -114,14 +114,13 @@
                             <constraint firstItem="0VR-5N-Cz4" firstAttribute="trailing" secondItem="UMv-oV-KnD" secondAttribute="trailing" id="OmA-LI-vnU"/>
                             <constraint firstItem="0VR-5N-Cz4" firstAttribute="top" secondItem="7NY-kL-o8z" secondAttribute="bottom" constant="14" id="QJ9-aw-p8N"/>
                             <constraint firstItem="SRq-K1-tn4" firstAttribute="top" secondItem="0r3-xQ-khf" secondAttribute="top" constant="53" id="T7C-ln-b4v"/>
-                            <constraint firstItem="UPg-YP-YUo" firstAttribute="top" secondItem="GVo-JO-iKt" secondAttribute="bottom" constant="66" id="U1r-ES-271"/>
                             <constraint firstItem="SRq-K1-tn4" firstAttribute="leading" secondItem="gdo-1i-EVx" secondAttribute="leadingMargin" id="Z9X-st-JbQ"/>
                             <constraint firstItem="7NY-kL-o8z" firstAttribute="leading" secondItem="0VR-5N-Cz4" secondAttribute="leading" id="ca9-hm-wwe"/>
                             <constraint firstItem="0VR-5N-Cz4" firstAttribute="leading" secondItem="UMv-oV-KnD" secondAttribute="leading" id="csK-Jg-xeZ"/>
-                            <constraint firstItem="GVo-JO-iKt" firstAttribute="top" secondItem="vud-RT-32g" secondAttribute="bottom" constant="64" id="dtM-Uj-R6m"/>
                             <constraint firstItem="SRq-K1-tn4" firstAttribute="trailing" secondItem="7NY-kL-o8z" secondAttribute="trailing" id="h3R-Vv-jWr"/>
+                            <constraint firstItem="GVo-JO-iKt" firstAttribute="firstBaseline" secondItem="vud-RT-32g" secondAttribute="baseline" constant="80.333333333333314" id="hq4-Jo-sU0"/>
                             <constraint firstItem="UMv-oV-KnD" firstAttribute="leading" secondItem="UPg-YP-YUo" secondAttribute="leading" id="iQ2-dy-uBI"/>
-                            <constraint firstItem="vud-RT-32g" firstAttribute="top" secondItem="UMv-oV-KnD" secondAttribute="bottom" constant="15" id="vxO-j2-SoQ"/>
+                            <constraint firstItem="vud-RT-32g" firstAttribute="top" secondItem="UMv-oV-KnD" secondAttribute="bottom" constant="8" id="vxO-j2-SoQ"/>
                             <constraint firstItem="0r3-xQ-khf" firstAttribute="trailing" secondItem="vud-RT-32g" secondAttribute="trailing" constant="16" id="vy0-je-hlz"/>
                             <constraint firstItem="WTM-F2-bW8" firstAttribute="top" secondItem="UPg-YP-YUo" secondAttribute="bottom" constant="8" symbolic="YES" id="wsb-G5-XsV"/>
                             <constraint firstItem="7NY-kL-o8z" firstAttribute="top" secondItem="SRq-K1-tn4" secondAttribute="bottom" constant="79" id="yH7-Qb-PeI"/>
@@ -1106,8 +1105,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="gr2-rD-MmT" kind="relationship" relationship="viewControllers" id="bt0-Hf-CT7"/>
                         <segue destination="sPF-rH-oMn" kind="relationship" relationship="viewControllers" id="Yc7-oP-CsF"/>
+                        <segue destination="gr2-rD-MmT" kind="relationship" relationship="viewControllers" id="bt0-Hf-CT7"/>
                         <segue destination="97j-mZ-FiN" kind="relationship" relationship="viewControllers" id="A6h-2q-biB"/>
                         <segue destination="czx-ct-SOr" kind="relationship" relationship="viewControllers" id="iBn-HB-CQe"/>
                     </connections>
@@ -2366,11 +2365,11 @@ We are committed to conducting our business in accordance with these principles 
             </objects>
             <point key="canvasLocation" x="7913" y="-432"/>
         </scene>
-        <!--Call-->
+        <!--Calls-->
         <scene sceneID="23x-ih-H71">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gr2-rD-MmT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Call" image="call" id="MV1-yO-6M8"/>
+                    <tabBarItem key="tabBarItem" title="Calls" image="call" id="MV1-yO-6M8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="w71-za-Vrm">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>

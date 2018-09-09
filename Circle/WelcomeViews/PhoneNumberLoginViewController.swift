@@ -14,7 +14,7 @@ class PhoneNumberLoginViewController: UIViewController {
     
     @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var mobileNumberTextField: UITextField!
-    @IBOutlet weak var codeTextField: UITextField!
+    @IBOutlet weak var codetextField: UITextField!
     @IBOutlet weak var requestButtonOutlet: UIButton!
     
     
@@ -71,14 +71,14 @@ class PhoneNumberLoginViewController: UIViewController {
         mobileNumberTextField.placeholder = mobileNumberTextField.text!
         mobileNumberTextField.text = ""
         
-        codeTextField.isHidden = false
+        codetextField.isHidden = false
     }
     
     func registerUser() {
         
-        if codeTextField.text != "" && verificationId != nil {
+        if codetextField.text != "" && verificationId != nil {
             
-            FUser.registerUserWith(phoneNumber: phoneNumber, verificationCode: codeTextField.text!, verificationId: verificationId) { (error, shouldLogin) in
+            FUser.registerUserWith(phoneNumber: phoneNumber, verificationCode: codetextField.text!, verificationId: verificationId) { (error, shouldLogin) in
                 
                 
                 if error != nil {

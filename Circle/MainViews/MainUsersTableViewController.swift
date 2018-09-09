@@ -24,6 +24,11 @@ class MainUsersTableViewController: UITableViewController, UserTableViewCellDele
     var currentMemberIds: [String] = []
     var group: NSDictionary!
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var user: FUser?
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         loadUsers(filter: kCITY)
@@ -93,25 +98,88 @@ class MainUsersTableViewController: UITableViewController, UserTableViewCellDele
         tableView.deselectRow(at: indexPath, animated: true)
         
         let sectionTitle = self.sectionTitleList[indexPath.section]
-        
+        let userToChat : FUser
         let users = self.allUsersGroupped[sectionTitle]
+        userToChat = users![indexPath.row]
         
-        let selectedUser = users![indexPath.row]
+        //////////////////
         
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        //add/remove users
-        let selected = newMemberIds.contains(selectedUser.objectId)
-        
-        if selected {
-            //remove
-            let objectIndex = newMemberIds.index(of: selectedUser.objectId)!
-            newMemberIds.remove(at: objectIndex)
+        let sendChat = UIAlertAction(title: "Chat", style: .default) { (action) in
             
-        } else {
-            //add to array
-            newMemberIds.append(selectedUser.objectId)
+            print("Chat")
+            if !checkUserBlockStatus(withUser: userToChat) {
+                
+                let chatVC = ChatViewController()
+                //chatVC.title = userToChat.firstname
+                chatVC.memberIds = [FUser.currentId(),userToChat.objectId]
+                chatVC.membersToPush = [FUser.currentId(),userToChat.objectId]
+                chatVC.chatRoomId = startPrivateChat(user1: FUser.currentUser()!, user2: userToChat)
+                chatVC.isGroup = false
+                chatVC.hidesBottomBarWhenPushed = true
+                
+                self.navigationController?.pushViewController(chatVC, animated: true)
+                
+            } else {
+                
+                ProgressHUD.showError("This user is not available for Chat!")
+            }
+            
+            
         }
         
+        let sendVideo = UIAlertAction(title: "Video Call", style: .default) { (action) in
+            
+            print("Video Call")
+            self.user = userToChat
+            self.callUser()
+            let currentUser = FUser.currentUser()!
+            let call = CallClass(_callerId: currentUser.objectId, _withUserId: userToChat.objectId, _callerFullName: currentUser.fullname, _withUserFullName: userToChat.fullname)
+            call.saveCallInBackground()
+            
+        }
+        
+        let sendAudio = UIAlertAction(title: "Audio Call", style: .default) { (action) in
+            
+            print("Audio Call")
+            self.user = userToChat
+            self.callUser()
+            let currentUser = FUser.currentUser()!
+            let call = CallClass(_callerId: currentUser.objectId, _withUserId: userToChat.objectId, _callerFullName: currentUser.fullname, _withUserFullName: userToChat.fullname)
+            call.saveCallInBackground()
+            
+            
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+        }
+        
+        sendChat.setValue(UIImage(named: "optionChat"), forKey: "image")
+        sendVideo.setValue(UIImage(named: "videocall"), forKey: "image")
+        sendAudio.setValue(UIImage(named: "optionCall"), forKey: "image")
+        
+        optionMenu.addAction(sendChat)
+        optionMenu.addAction(sendVideo)
+        optionMenu.addAction(sendAudio)
+        optionMenu.addAction(cancelAction)
+        
+        
+        //Options Menu on iPad
+        if (UI_USER_INTERFACE_IDIOM() == .pad)
+        {
+            
+            if let currentPopoverpresentioncontroller = optionMenu.popoverPresentationController{
+                
+                currentPopoverpresentioncontroller.permittedArrowDirections = .up
+                self.present(optionMenu,animated: true, completion: nil)
+            }
+        }else {
+            self.present(optionMenu,animated: true, completion: nil)
+            
+        }
        
     }
     
@@ -241,6 +309,28 @@ class MainUsersTableViewController: UITableViewController, UserTableViewCellDele
             
         }
         
+    }
+    
+    func callClient() -> SINCallClient {
+        
+        return appDelegate._client.call()
+    }
+    func callUser() {
+        let userToCall = user!.objectId
+        let call = callClient().callUser(withId: userToCall)
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+        
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
+    }
+    
+    
+    func callUserVideo() {
+        let userToCall = user!.objectId
+        let call = callClient().callUserVideo(withId: userToCall)
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
     }
     
     

@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     var _client: SINClient!
     var push: SINManagedPush!
     var callKitProvider: SINCallKitProvider!
+    var userName = ""
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -120,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
-        
+        // If there is one established call, show the callView of the current call when the App is brought to foreground.
         if callKitProvider != nil {
             let call = callKitProvider.currentEstablishedCall()
             
@@ -131,18 +132,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                     top = top?.presentedViewController
                 }
                 
-                
-                if !(top! is CallViewController) {
+                if (call!.details.isVideoOffered && !(top! is VideoCallViewController)) {
+                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+                    
+                    callVC._call = call
+                    
+                    top?.present(callVC, animated: true, completion: nil)
+                    
+               }
+               else if !(top! is CallViewController) {
                     let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
                     
                     callVC._call = call
                     
                     top?.present(callVC, animated: true, completion: nil)
                 }
+                
             }
         }
-        // If there is one established call, show the callView of the current call when the App is brought to foreground.
-        // This is mainly to handle the UI transition when clicking the App icon on the lockscreen CallKit UI.
+        
+        
         
     }
     
@@ -291,6 +300,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
     
     func handleRemoteNotification(userInfo: NSDictionary) {
         print("got rem not")
+    
         if _client == nil {
             if let userId = UserDefaults.standard.object(forKey: kUSERID) {
                 self.initSinchWithUserId(userId: userId as! String)
@@ -303,13 +313,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             print("handle call notification")
         }
         
-        if result!.isCall() && result!.call()!.isCallCanceled {
-            self.presentMissedCallNotificationWithRemoteUserId(userId: result!.call()!.callId)
+        var usernameId = result!.call()!.remoteUserId!
+        print("Remote Username ID")
+        print(usernameId)
+        
+        reference(.User).document(usernameId).getDocument { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {  return }
+            
+            if snapshot.exists {
+                print("Snapshot Exist")
+                let user = FUser(_dictionary: snapshot.data()! as NSDictionary)
+                print(user.fullname)
+                self.userName = user.fullname
+            }
         }
+        print(self.userName)
+        if result!.isCall() && result!.call()!.isCallCanceled {
+            self.presentMissedCallNotificationWithRemoteUserId(userId: self.userName)
+        }
+        
+       
         
     }
     
     func presentMissedCallNotificationWithRemoteUserId(userId: String) {
+        print("Missed Call Alert")
+        print(userId)
         
         if UIApplication.shared.applicationState == .background {
             
@@ -351,11 +381,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         while (top?.presentedViewController != nil) {
             top = top?.presentedViewController
         }
-        
-        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
-        
-        callVC._call = call
-        top?.present(callVC, animated: true, completion: nil)
+        if (call!.details.isVideoOffered) {
+            let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+            
+            callVC._call = call
+            top?.present(callVC, animated: true, completion: nil)
+        }
+        else {
+            let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+            
+            callVC._call = call
+            top?.present(callVC, animated: true, completion: nil)
+        }
+       
     }
     
     //MARK:  SinchClintDelegate

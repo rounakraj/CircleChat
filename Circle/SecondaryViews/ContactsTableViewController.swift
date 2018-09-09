@@ -181,7 +181,7 @@ class ContactsTableViewController: UITableViewController, UISearchResultsUpdatin
             if !checkUserBlockStatus(withUser: userToChat) {
                 
                 let chatVC = ChatViewController()
-                chatVC.title = userToChat.firstname
+                //chatVC.title = userToChat.firstname
                 chatVC.memberIds = [FUser.currentId(),userToChat.objectId]
                 chatVC.membersToPush = [FUser.currentId(),userToChat.objectId]
                 chatVC.chatRoomId = startPrivateChat(user1: FUser.currentUser()!, user2: userToChat)
