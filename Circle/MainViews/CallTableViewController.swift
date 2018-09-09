@@ -98,6 +98,72 @@ class CallTableViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let userToCall = allCalls[indexPath.row]
+        print("Caller Object Id")
+        print(userToCall.callerId)
+        print(userToCall.callerFullName)
+        
+        
+        
+       //////////////////
+        
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let sendVideo = UIAlertAction(title: "Video Call", style: .default) { (action) in
+            
+            print("Video Call")
+            self.callUserVideo(userId: userToCall.callerId)
+            let currentUser = FUser.currentUser()!
+            let call = CallClass(_callerId: currentUser.objectId, _withUserId: userToCall.callerId, _callerFullName: currentUser.fullname, _withUserFullName: userToCall.callerFullName)
+            call.saveCallInBackground()
+            
+        }
+        
+        let sendAudio = UIAlertAction(title: "Audio Call", style: .default) { (action) in
+            
+            print("Audio Call")
+            self.callUser(userId: userToCall.callerId)
+            let currentUser = FUser.currentUser()!
+            let call = CallClass(_callerId: currentUser.objectId, _withUserId: userToCall.callerId, _callerFullName: currentUser.fullname, _withUserFullName: userToCall.callerFullName)
+            call.saveCallInBackground()
+            
+            
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            
+        }
+        
+        sendVideo.setValue(UIImage(named: "videocall"), forKey: "image")
+        sendAudio.setValue(UIImage(named: "optionCall"), forKey: "image")
+        
+        optionMenu.addAction(sendVideo)
+        optionMenu.addAction(sendAudio)
+        optionMenu.addAction(cancelAction)
+        
+        
+        //Options Menu on iPad
+        if (UI_USER_INTERFACE_IDIOM() == .pad)
+        {
+            
+            if let currentPopoverpresentioncontroller = optionMenu.popoverPresentationController{
+                
+                currentPopoverpresentioncontroller.permittedArrowDirections = .up
+                self.present(optionMenu,animated: true, completion: nil)
+            }
+        }else {
+            self.present(optionMenu,animated: true, completion: nil)
+            
+        }
+        
+        
+    }
+    
     //MARK: LoadCalls
     
     func loadCalls() {
@@ -148,6 +214,27 @@ class CallTableViewController: UITableViewController, UISearchResultsUpdating {
         filteredContentForSearchText(searchText: searchController.searchBar.text!)
     }
     
+    func callClient() -> SINCallClient {
+        
+        return appDelegate._client.call()
+    }
+    func callUser(userId: String) {
+        let userToCall = userId
+        let call = callClient().callUser(withId: userToCall)
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CallVC") as! CallViewController
+        
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
+    }
+    
+    
+    func callUserVideo(userId: String) {
+        let userToCall = userId
+        let call = callClient().callUserVideo(withId: userToCall)
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+        callVC._call = call
+        self.present(callVC, animated: true, completion: nil)
+    }
     
     
 }
