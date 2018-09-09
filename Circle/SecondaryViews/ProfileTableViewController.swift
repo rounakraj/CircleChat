@@ -208,7 +208,7 @@ class ProfileTableViewController: UITableViewController {
     func callUserVideo() {
         let userToCall = user!.objectId
         let call = callClient().callUserVideo(withId: userToCall)
-        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+        let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! CallVideoViewController
         callVC._call = call
         self.present(callVC, animated: true, completion: nil)
     }

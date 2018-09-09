@@ -60,6 +60,8 @@
 		8D7CE37420E0CC6A00C63D04 /* CollectionReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CE37320E0CC6A00C63D04 /* CollectionReference.swift */; };
 		8D7E7A722142FD61000CCF20 /* MainUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E7A712142FD61000CCF20 /* MainUsersTableViewController.swift */; };
 		8D8B5FD62118350500BB9830 /* Encryption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8B5FD52118350500BB9830 /* Encryption.swift */; };
+		8D941AA52145389600784F6E /* CallVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D941AA42145389600784F6E /* CallVideoViewController.swift */; };
+		8D941AA72145BB8400784F6E /* RoundUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D941AA62145BB8300784F6E /* RoundUIView.swift */; };
 		8DB8C02820E8B3B700009943 /* OutgoingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */; };
 		8DB8C02A20E9071B00009943 /* IncomingMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB8C02920E9071B00009943 /* IncomingMessages.swift */; };
 		8DBD390A20E241D000714FBB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBD390920E241D000714FBB /* SettingsTableViewController.swift */; };
@@ -182,6 +184,8 @@
 		8D7CE37320E0CC6A00C63D04 /* CollectionReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReference.swift; sourceTree = "<group>"; };
 		8D7E7A712142FD61000CCF20 /* MainUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUsersTableViewController.swift; sourceTree = "<group>"; };
 		8D8B5FD52118350500BB9830 /* Encryption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encryption.swift; sourceTree = "<group>"; };
+		8D941AA42145389600784F6E /* CallVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallVideoViewController.swift; sourceTree = "<group>"; };
+		8D941AA62145BB8300784F6E /* RoundUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundUIView.swift; sourceTree = "<group>"; };
 		8DB8C02720E8B3B700009943 /* OutgoingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutgoingMessages.swift; sourceTree = "<group>"; };
 		8DB8C02920E9071B00009943 /* IncomingMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingMessages.swift; sourceTree = "<group>"; };
 		8DBD390920E241D000714FBB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 				8D8B5FD52118350500BB9830 /* Encryption.swift */,
 				8D2B3E18213A5EC200551F23 /* PushNotifications.swift */,
 				8D50BB2A213AE1AA00B2E6D6 /* CallClass.swift */,
+				8D941AA62145BB8300784F6E /* RoundUIView.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -413,6 +418,7 @@
 				8DC6F63020E7EDFC00175322 /* ChatViewController.swift */,
 				8D50BB34213B21C000B2E6D6 /* CallViewController.swift */,
 				8D64C64E213EC4AA00FDD7E5 /* VideoCallViewController.swift */,
+				8D941AA42145389600784F6E /* CallVideoViewController.swift */,
 			);
 			path = SecondaryViews;
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 			files = (
 				8D0CDD302113348700D69A0B /* BackgroundCollectionViewCell.swift in Sources */,
 				8D7CE37420E0CC6A00C63D04 /* CollectionReference.swift in Sources */,
+				8D941AA72145BB8400784F6E /* RoundUIView.swift in Sources */,
 				8DC6F62D20E406A300175322 /* Recents.swift in Sources */,
 				8D0CDD2E2113345900D69A0B /* BackgroundCollectionViewController.swift in Sources */,
 				8D6454EB20FFB636002367C6 /* CountryCode.swift in Sources */,
@@ -883,6 +890,7 @@
 				8D8B5FD62118350500BB9830 /* Encryption.swift in Sources */,
 				8D6454E520FE55E4002367C6 /* PictureCollectionViewController.swift in Sources */,
 				8DBD391120E2D1BE00714FBB /* ChatsViewController.swift in Sources */,
+				8D941AA52145389600784F6E /* CallVideoViewController.swift in Sources */,
 				8D143D4620DCF8B6006E5451 /* AppDelegate.swift in Sources */,
 				8D2B3E122139A51300551F23 /* Group.swift in Sources */,
 				8D7CE36E20E0C92A00C63D04 /* FUser.swift in Sources */,

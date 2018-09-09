@@ -1,5 +1,6 @@
+
 //
-//  VideoCallViewController.swift
+//  CallVideoViewController.swift
 //  Circle
 //
 //  Created by Kumar Rounak on 04/09/18.
@@ -8,19 +9,20 @@
 
 import UIKit
 
-class VideoCallViewController: UIViewController, SINCallDelegate {
+class CallVideoViewController: UIViewController, SINCallDelegate {
+    
+    
     
     @IBOutlet weak var localView: UIView!
     @IBOutlet weak var remoteView: UIView!
     @IBOutlet weak var answerButtonOutlet: UIButton!
-    @IBOutlet weak var declineButtonOutlet: UIButton!
     @IBOutlet weak var hangupButtonOutlet: UIButton!
+    @IBOutlet weak var declineButtonOutlet: UIButton!
     @IBOutlet weak var speakerButtonOutlet: UIButton!
     @IBOutlet weak var muteButtonOutlet: UIButton!
     @IBOutlet weak var imageViewOutlet: UIImageView!
     @IBOutlet weak var callStatusLabelOutlet: UILabel!
     @IBOutlet weak var fullNameLabelOutlet: UILabel!
-    
     
     var incomingCall: SINCall?
     var _call: SINCall!
@@ -51,11 +53,11 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
             
         }
     }
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         
         _call.delegate = self
@@ -76,7 +78,7 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
         
     }
     
-  
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -100,7 +102,7 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
         return appDelegate._client.audioController()
     }
     
-  
+    
     
     //MARK: SINCall Delegate
     
@@ -113,8 +115,8 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
     }
     
     func callDidProgress(_ call: SINCall!) {
-       audioController().enableSpeaker()
-       audioController().startPlayingSoundFile(pathForSound(soundName: "ringback"), loop: true)
+        audioController().enableSpeaker()
+        audioController().startPlayingSoundFile(pathForSound(soundName: "ringback"), loop: true)
     }
     
     func callDidEstablish(_ call: SINCall!) {
@@ -124,8 +126,17 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
         audioController().enableSpeaker()
         if _call.details.isVideoOffered {
             DispatchQueue.main.async {
-                self.localView.addSubview(self.videoController().localView())
-                self.localView.contentMode = .scaleAspectFill
+                //self.localView.addSubview(self.videoController().localView())
+                //self.localView.contentMode = .scaleAspectFill
+                
+                if let lv = self.videoController().localView() {
+                    lv.contentMode = .scaleAspectFill
+                    lv.frame = self.localView.bounds
+                    self.localView.addSubview(lv)
+                    self.localView.layer.cornerRadius = self.localView.frame.size.width / 2
+                    self.localView.clipsToBounds = true
+                }
+                
                 // 1. create a gesture recognizer (tap gesture)
                 let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapLocalView(sender:)))
                 // 2. add the gesture recognizer to a view
@@ -139,9 +150,17 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
     }
     
     func callDidAddVideoTrack(_ call: SINCall?) {
-        remoteView.addSubview(videoController().remoteView())
-        remoteView.contentMode = .scaleAspectFill
-        remoteView.frame =  remoteView.bounds
+        
+        if let rv = videoController().remoteView() {
+            rv.contentMode = .scaleAspectFill
+            rv.frame = self.remoteView.bounds
+            self.remoteView.addSubview(rv)
+        }
+        
+        
+       /* remoteView.addSubview(videoController().remoteView())
+        remoteView.contentMode = .scaleToFill
+        remoteView.frame =  remoteView.bounds*/
         
         // 1. create a gesture recognizer (tap gesture)
         let tapGestureRemote = UITapGestureRecognizer(target: self, action: #selector(self.onTapRemoteView(sender:)))
@@ -149,7 +168,7 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
         self.remoteView.addGestureRecognizer(tapGestureRemote)
     }
     
-        
+    
     //MARK: IBActions
     
     @IBAction func answerButtonPressed(_ sender: Any) {
@@ -206,8 +225,8 @@ class VideoCallViewController: UIViewController, SINCallDelegate {
     
     
     @objc func onTapLocalView(sender: UITapGestureRecognizer) {
-       print("Toggle Camera Position")
-       self.videoController().captureDevicePosition = SINToggleCaptureDevicePosition(self.videoController().captureDevicePosition)
+        print("Toggle Camera Position")
+        self.videoController().captureDevicePosition = SINToggleCaptureDevicePosition(self.videoController().captureDevicePosition)
         
     }
     

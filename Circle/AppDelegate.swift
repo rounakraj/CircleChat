@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
                 }
                 
                 if (call!.details.isVideoOffered && !(top! is VideoCallViewController)) {
-                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+                    let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! CallVideoViewController
                     
                     callVC._call = call
                     
@@ -382,7 +382,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             top = top?.presentedViewController
         }
         if (call!.details.isVideoOffered) {
-            let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoVC") as! VideoCallViewController
+            let callVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "VideoViewController") as! CallVideoViewController
             
             callVC._call = call
             top?.present(callVC, animated: true, completion: nil)
